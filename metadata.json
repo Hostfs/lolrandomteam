@@ -1,0 +1,5 @@
+{
+  "name": "LoL 5v5 Team Randomizer",
+  "description": "A beautiful League of Legends themed 5v5 team randomizer with constraints for same/different teams.",
+  "requestFramePermissions": []
+}
