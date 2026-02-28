@@ -131,11 +131,16 @@ export default function App() {
         nameMap.get(name)!.push(i + 1);
       });
 
+      const duplicateErrors: string[] = [];
       for (const [name, indices] of nameMap.entries()) {
         if (indices.length > 1) {
-          setError(`${indices[0]}번 소환사 '${name}'님과 ${indices[1]}번 소환사 '${name}'님이 중복됩니다. 서로 다른 이름으로 입력해주세요.`);
-          return;
+          duplicateErrors.push(`${indices.join(', ')}번 소환사 '${name}'님이 중복됩니다.`);
         }
+      }
+      
+      if (duplicateErrors.length > 0) {
+        setError(duplicateErrors.join('\n') + '\n서로 다른 이름으로 입력해주세요.');
+        return;
       }
       
       setError('소환사 이름은 모두 달라야 합니다. (중복 불가)');
@@ -466,7 +471,7 @@ export default function App() {
                     className="flex items-center gap-2 text-red-400 bg-red-400/10 px-4 py-3 rounded-xl border border-red-400/20 w-full"
                   >
                     <AlertCircle className="w-5 h-5 shrink-0" />
-                    <p className="text-sm">{error}</p>
+                    <p className="text-sm whitespace-pre-wrap">{error}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
